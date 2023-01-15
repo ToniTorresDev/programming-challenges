@@ -9,9 +9,12 @@
  * starting by 0 and showing the sum of the last two numbers
  */
 
-run_fibonacci()
+var startTime = performance.now()
+run_fibonacci_v1()
+var endTime = performance.now()
+console.log(`For loop version ${endTime - startTime} milliseconds`)
 
-function run_fibonacci() {
+function run_fibonacci_v1() {
     let last_number_1 = 0
     let last_number_2 = 0
     let result = []
@@ -34,3 +37,36 @@ function run_fibonacci() {
     
     console.table(result);
 }
+
+let run_fibonacci_v2 = (last_number_1, last_number_2) => {
+    if (index === 51) return ;
+
+    total = last_number_1 + last_number_2
+
+    result.push({
+        // position: i,
+        last_number_1: last_number_1,
+        last_number_2: last_number_2,
+        total: total,
+    })
+
+    if (index === 0) last_number_1++
+
+    if (index % 2 === 1) last_number_1 = total
+    else last_number_2 = total
+    
+    index++
+
+    return run_fibonacci_v2(last_number_1, last_number_2)
+}
+
+var  result = []
+var index = 0
+
+startTime = performance.now()
+run_fibonacci_v2(0, 0)
+endTime = performance.now()
+
+console.table(result)
+console.log(`Recursive function version ${endTime - startTime} milliseconds`)
+
